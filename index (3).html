@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Play Room Kids Reliz | Salón de Eventos Infantiles</title>
+<meta name="description" content="Play Room Kids Reliz - El lugar donde tus hijos vivirán la mejor fiesta de su vida. Paquetes, juegos y diversión asegurada.">
+
+<!-- Tailwind CSS vía CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Google Fonts: Fredoka (redondeada, juguetona, perfecta para marca infantil) + Nunito (cuerpo de texto legible y amigable) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Configuración de Tailwind: paleta de marca + tipografías -->
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          brand: {
+            blue: '#1D7FC3',
+            'blue-dark': '#15628F',
+            lime: '#A3CE3F',
+            'lime-dark': '#8AB02E',
+            yellow: '#F7DF1A',
+            'yellow-dark': '#D9BE00',
+            red: '#ED1C24',
+            'red-dark': '#C7151B',
+            purple: '#8B5CF6',
+            'purple-dark': '#6D28D9',
+            pink: '#F472B6',
+            'pink-dark': '#DB2777',
+            lilac: '#C084FC',
+          }
+        },
+        fontFamily: {
+          display: ['Fredoka', 'sans-serif'],
+          body: ['Nunito', 'sans-serif'],
+        },
+        boxShadow: {
+          'pop': '0 6px 0 rgba(0,0,0,0.12)',
+          'pop-sm': '0 4px 0 rgba(0,0,0,0.12)',
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  /* Suaviza el scroll al hacer clic en "Pedir Información" */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Respeta preferencia de reducción de movimiento */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+  }
+
+  .font-display {
+    font-family: 'Fredoka', sans-serif;
+  }
+
+  /* Borde "nube" decorativo para separar secciones de forma juguetona, sin usar líneas rectas tristes */
+  .cloud-divider {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    overflow: hidden;
+    line-height: 0;
+  }
+  .cloud-divider svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* Animación suave de flotación para el ícono de scroll del hero */
+  @keyframes float-y {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+  .animate-float {
+    animation: float-y 2.2s ease-in-out infinite;
+  }
+
+  /* Efecto de "presión" en botones tipo juguete: se hunden levemente al hacer clic */
+  .btn-pop:active {
+    transform: translateY(4px);
+    box-shadow: none !important;
+  }
+
+  /* Título festivo tipo cartel de fiesta: contorno + sombra marcada */
+  .title-festive {
+    -webkit-text-stroke: 1.5px rgba(0,0,0,0.08);
+    text-shadow: 3px 3px 0 rgba(0,0,0,0.10);
+  }
+
+  /* Divisor de onda reutilizable entre secciones */
+  .wave-divider {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 36px;
+    overflow: hidden;
+    line-height: 0;
+  }
+  .wave-divider.wave-top { top: -1px; transform: rotate(180deg); }
+  .wave-divider.wave-bottom { bottom: -1px; }
+  .wave-divider svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* Leve "tambaleo" en hover para íconos/globitos festivos */
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+  }
+  .hover-wiggle:hover {
+    animation: wiggle 0.5s ease-in-out infinite;
+  }
+
+  /* ============================================ */
+  /* FONDO GLOBAL DE BURBUJAS / CONFETI            */
+  /* Patrón orgánico, suave y repetible vía SVG    */
+  /* en background-image (no impacta performance)  */
+  /* ============================================ */
+  .bubble-bg {
+    background-color: #E0F2FE; /* sky-100 */
+    background-image:
+      radial-gradient(circle at 8% 12%,  rgba(247,223,26,0.30) 0px, rgba(247,223,26,0.30) 26px, transparent 27px),
+      radial-gradient(circle at 22% 75%, rgba(244,114,182,0.26) 0px, rgba(244,114,182,0.26) 16px, transparent 17px),
+      radial-gradient(circle at 38% 30%, rgba(192,132,252,0.22) 0px, rgba(192,132,252,0.22) 10px, transparent 11px),
+      radial-gradient(circle at 55% 88%, rgba(163,206,63,0.28)  0px, rgba(163,206,63,0.28)  20px, transparent 21px),
+      radial-gradient(circle at 72% 18%, rgba(244,114,182,0.22) 0px, rgba(244,114,182,0.22) 12px, transparent 13px),
+      radial-gradient(circle at 86% 62%, rgba(247,223,26,0.26)  0px, rgba(247,223,26,0.26)  22px, transparent 23px),
+      radial-gradient(circle at 95% 95%, rgba(192,132,252,0.24) 0px, rgba(192,132,252,0.24) 14px, transparent 15px),
+      radial-gradient(circle at 12% 95%, rgba(163,206,63,0.20)  0px, rgba(163,206,63,0.20)  8px,  transparent 9px);
+    background-repeat: repeat;
+    background-size: 480px 480px;
+  }
+
+  /* Variante más sutil para usar sobre fondo blanco (secciones internas) */
+  .bubble-bg-soft {
+    background-color: #FFFFFF;
+    background-image:
+      radial-gradient(circle at 10% 15%, rgba(247,223,26,0.16) 0px, rgba(247,223,26,0.16) 22px, transparent 23px),
+      radial-gradient(circle at 30% 80%, rgba(244,114,182,0.14) 0px, rgba(244,114,182,0.14) 14px, transparent 15px),
+      radial-gradient(circle at 60% 25%, rgba(192,132,252,0.14) 0px, rgba(192,132,252,0.14) 10px, transparent 11px),
+      radial-gradient(circle at 85% 70%, rgba(163,206,63,0.16)  0px, rgba(163,206,63,0.16)  18px, transparent 19px),
+      radial-gradient(circle at 92% 10%, rgba(244,114,182,0.12) 0px, rgba(244,114,182,0.12) 9px,  transparent 10px);
+    background-repeat: repeat;
+    background-size: 420px 420px;
+  }
+
+  /* Tarjetas/secciones que "flotan": sombra suave + leve elevación en hover */
+  .card-float {
+    box-shadow: 0 10px 30px -8px rgba(29,127,195,0.18), 0 4px 10px -4px rgba(0,0,0,0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .card-float:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 36px -8px rgba(29,127,195,0.24), 0 6px 14px -4px rgba(0,0,0,0.08);
+  }
+
+  /* Glassmorphism para navbar premium */
+  .glass-nav {
+    background: rgba(255,255,255,0.72);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border-bottom: 1px solid rgba(255,255,255,0.5);
+  }
+
+  /* Animación de "regalo" bamboleándose suavemente, para el banner mágico */
+  @keyframes gift-bounce {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-4px) rotate(-6deg); }
+    75% { transform: translateY(-4px) rotate(6deg); }
+  }
+  .animate-gift {
+    animation: gift-bounce 1.8s ease-in-out infinite;
+    display: inline-block;
+  }
+
+  /* Pulso de atención para el botón flotante de WhatsApp */
+  @keyframes whatsapp-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(163,206,63,0.55); }
+    70% { box-shadow: 0 0 0 14px rgba(163,206,63,0); }
+    100% { box-shadow: 0 0 0 0 rgba(163,206,63,0); }
+  }
+  .animate-pulse-whatsapp {
+    animation: whatsapp-pulse 2.4s ease-out infinite;
+  }
+
+  /* Zoom suave para fotos de galería tipo masonry */
+  .gallery-photo img {
+    transition: transform 0.5s ease;
+  }
+  .gallery-photo:hover img {
+    transform: scale(1.08);
+  }
+</style>
+</head>
+
+<body class="bubble-bg text-slate-700 font-body antialiased">
+
+<!-- ============================================ -->
+<!-- NAVBAR FIJO SUPERIOR                          -->
+<!-- ============================================ -->
+<header class="fixed top-0 left-0 w-full z-50">
+
+  <!-- Barra principal del navbar -->
+  <nav class="glass-nav shadow-md">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex items-center justify-between h-16 md:h-20">
+
+        <!-- Lado Izquierdo: Logo + Nombre -->
+        <a href="#inicio" class="flex items-center gap-2 md:gap-3 shrink-0">
+          <img
+            src="https://placehold.co/80x80/1D7FC3/FFFFFF?text=PRK"
+            alt="Playroom Kids Reliz Logo"
+            class="h-11 w-11 md:h-14 md:w-14 rounded-full object-cover ring-2 ring-brand-yellow"
+          >
+          <span class="font-display font-600 leading-tight text-[#1D7FC3] text-sm md:text-lg">
+            Playroom<br class="md:hidden">
+            <span class="md:inline"> </span>Kids Reliz
+          </span>
+        </a>
+
+        <!-- Lado Derecho: Ubicación / WhatsApp / Menú -->
+        <div class="flex items-center gap-3 md:gap-5">
+
+          <!-- Ubicación -->
+          <a
+            href="#contacto"
+            aria-label="Ver ubicación"
+            class="flex flex-col items-center group"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#F7DF1A" stroke="#15628F" stroke-width="1" class="h-7 w-7 md:h-8 md:w-8 transition-transform group-hover:-translate-y-0.5">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/>
+            </svg>
+            <span class="hidden md:block text-[11px] font-700 text-slate-500">Ubicación</span>
+          </a>
+
+          <!-- WhatsApp -->
+          <a
+            href="https://wa.me/5210000000000?text=Hola%2C%20quiero%20información%20de%20Play%20Room%20Kids%20Reliz"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Escribir por WhatsApp"
+            class="flex flex-col items-center group"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#A3CE3F" class="h-7 w-7 md:h-8 md:w-8 transition-transform group-hover:-translate-y-0.5">
+              <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.84.5 3.56 1.36 5.04L2 22l5.25-1.38a9.85 9.85 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.47 17.5 2 12.04 2zm5.8 14a8.2 8.2 0 0 1-5.8 2.39 8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.12.82.83-3.04-.2-.31a8.18 8.18 0 0 1-1.26-4.37c0-4.54 3.7-8.24 8.24-8.24a8.2 8.2 0 0 1 5.83 2.41 8.18 8.18 0 0 1 2.4 5.82c0 2.2-.86 4.27-2.44 5.84zm-3.86-5.93c-.24-.12-1.4-.69-1.62-.77-.22-.08-.37-.12-.53.12-.16.24-.6.77-.74.92-.13.16-.27.18-.5.06-.23-.12-.96-.35-1.83-1.13-.68-.6-1.13-1.34-1.27-1.57-.13-.23-.01-.36.11-.48.12-.12.27-.31.4-.47.13-.16.18-.27.27-.45.09-.18.04-.34-.04-.46-.08-.12-.5-1.2-.69-1.65-.18-.43-.36-.37-.5-.38-.13-.01-.28-.01-.43-.01-.15 0-.39.06-.6.29-.21.23-.8.78-.8 1.9 0 1.12.81 2.2.93 2.36.12.16 1.59 2.43 3.86 3.31 2.27.88 2.27.59 2.68.55.41-.04 1.33-.54 1.51-1.07.19-.53.19-.98.13-1.07-.06-.1-.22-.16-.46-.28z"/>
+            </svg>
+            <span class="hidden md:block text-[11px] font-700 text-slate-500">WhatsApp</span>
+          </a>
+
+          <!-- Menú Hamburguesa -->
+          <button
+            type="button"
+            id="menu-toggle"
+            aria-label="Abrir menú"
+            aria-expanded="false"
+            class="flex flex-col items-center group"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1D7FC3" stroke-width="2.5" stroke-linecap="round" class="h-7 w-7 md:h-8 md:w-8 transition-transform group-hover:-translate-y-0.5">
+              <line x1="4" y1="6" x2="20" y2="6"/>
+              <line x1="4" y1="12" x2="20" y2="12"/>
+              <line x1="4" y1="18" x2="20" y2="18"/>
+            </svg>
+            <span class="hidden md:block text-[11px] font-700 text-slate-500">Menú</span>
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Menú desplegable (oculto por defecto) -->
+    <div
+      id="menu-dropdown"
+      class="hidden glass-nav border-t border-white/40 shadow-inner"
+    >
+      <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col text-center divide-y divide-sky-100">
+        <a href="#inicio" class="py-3 font-display text-brand-blue hover:bg-sky-50 rounded-lg transition">Inicio</a>
+        <a href="#paquetes" class="py-3 font-display text-brand-blue hover:bg-sky-50 rounded-lg transition">Paquetes</a>
+        <a href="#galeria" class="py-3 font-display text-brand-blue hover:bg-sky-50 rounded-lg transition">Galería</a>
+        <a href="#contacto" class="py-3 font-display text-brand-blue hover:bg-sky-50 rounded-lg transition">Contacto</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================ -->
+  <!-- BARRA DE BOTONES DE ACCIÓN INMEDIATA          -->
+  <!-- ============================================ -->
+  <div class="w-full grid grid-cols-2">
+    <a
+      href="#contacto"
+      class="btn-pop flex items-center justify-center gap-2 bg-brand-blue hover:bg-brand-blue-dark text-white font-display text-sm md:text-base py-3 md:py-4 transition-colors"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+      Pedir Información
+    </a>
+    <a
+      href="https://wa.me/5210000000000?text=Hola%2C%20quiero%20agendar%20una%20cita%20en%20Play%20Room%20Kids%20Reliz"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn-pop flex items-center justify-center gap-2 bg-brand-red hover:bg-brand-red-dark text-white font-display text-sm md:text-base py-3 md:py-4 transition-colors"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+        <rect x="3" y="4" width="18" height="18" rx="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+      Agendar Cita
+    </a>
+  </div>
+</header>
+
+<!-- Espaciador para compensar la altura del header fijo (navbar + barra de botones) -->
+<div class="h-[104px] md:h-[128px]"></div>
+
+<!-- ============================================ -->
+<!-- HERO / HEADER PRINCIPAL (Video limpio, sin texto encima) -->
+<!-- ============================================ -->
+<section id="inicio" class="relative w-full overflow-hidden">
+
+  <!-- Contenedor de video/imagen de fondo -->
+  <div class="relative h-[60vh] min-h-[360px] md:h-[85vh] w-full">
+
+    <!-- Placeholder de VIDEO en bucle. Reemplazar 'src' por el video real de niños divirtiéndose -->
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      poster="https://placehold.co/1200x900/1D7FC3/FFFFFF?text=Ni%C3%B1os+Divirti%C3%A9ndose"
+      class="absolute inset-0 w-full h-full object-cover"
+    >
+      <source src="VIDEO-PLACEHOLDER-NINOS-JUGANDO.mp4" type="video/mp4">
+    </video>
+
+    <!-- Leve viñeta inferior solo para fundir con el divisor de onda, sin tapar el video -->
+    <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-brand-blue-dark/40 to-transparent"></div>
+
+    <!-- Divisor de onda hacia la sección de bienvenida -->
+    <div class="wave-divider wave-bottom z-10">
+      <svg viewBox="0 0 500 40" preserveAspectRatio="none">
+        <path d="M0,20 C100,40 150,0 250,15 C350,30 400,0 500,20 L500,40 L0,40 Z" fill="#FFFFFF"></path>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- BLOQUE DE BIENVENIDA (debajo del video)       -->
+  <!-- ============================================ -->
+  <div class="relative bubble-bg-soft px-5 md:px-10 pt-10 pb-14 md:pt-16 md:pb-20 text-center overflow-hidden">
+
+    <!-- Confeti decorativo (alegre, sin saturar) -->
+    <div class="absolute top-8 left-6 h-4 w-4 rounded-full bg-brand-yellow rotate-12 hidden md:block"></div>
+    <div class="absolute top-16 right-10 h-3 w-3 rounded-full bg-brand-lime hidden md:block"></div>
+    <div class="absolute bottom-10 left-16 h-3 w-3 rounded-full bg-brand-red hidden md:block"></div>
+    <div class="absolute bottom-16 right-20 h-4 w-4 rounded-full bg-brand-purple rotate-6 hidden md:block"></div>
+
+    <span class="font-display inline-block bg-brand-yellow text-brand-blue-dark text-xs md:text-sm font-600 px-4 py-1 rounded-full shadow-pop-sm mb-4 uppercase tracking-wide">
+      ¡Bienvenidos a la diversión!
+    </span>
+
+    <h1 class="title-festive font-display text-brand-blue text-3xl sm:text-4xl md:text-6xl font-700 leading-tight max-w-3xl mx-auto">
+      ¡La diversión que tus hijos<br class="hidden sm:block"> recordarán por siempre!
+    </h1>
+
+    <p class="mt-5 text-slate-600 text-base md:text-xl max-w-xl mx-auto font-600">
+      En Play Room Kids Reliz creamos fiestas llenas de juegos, risas y magia para que el cumpleaños de tu peque sea inolvidable.
+    </p>
+
+    <!-- CTAs principales -->
+    <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto px-6 sm:px-0 max-w-md sm:max-w-none mx-auto">
+      <a
+        href="#contacto"
+        class="btn-pop bg-brand-blue hover:bg-brand-blue-dark text-white font-display text-base md:text-lg px-7 py-3.5 rounded-full shadow-pop transition-colors"
+      >
+        Pedir Información
+      </a>
+      <a
+        href="https://wa.me/5210000000000?text=Hola%2C%20quiero%20agendar%20una%20cita%20en%20Play%20Room%20Kids%20Reliz"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-pop bg-brand-red hover:bg-brand-red-dark text-white font-display text-base md:text-lg px-7 py-3.5 rounded-full shadow-pop transition-colors"
+      >
+        Agendar Cita
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================ -->
+<!-- SECCIÓN: PAQUETES / PRECIOS                   -->
+<!-- ============================================ -->
+<section id="paquetes" class="relative bubble-bg pt-16 pb-20 md:pt-24 md:pb-28 px-5 md:px-10 overflow-hidden">
+
+  <!-- Divisor de onda superior, conecta con el blanco del bloque de bienvenida -->
+  <div class="wave-divider wave-top">
+    <svg viewBox="0 0 500 40" preserveAspectRatio="none">
+      <path d="M0,20 C100,40 150,0 250,15 C350,30 400,0 500,20 L500,40 L0,40 Z" fill="#FFFFFF"></path>
+    </svg>
+  </div>
+
+  <!-- Confeti decorativo de fondo -->
+  <div class="absolute top-24 left-8 h-4 w-4 rounded-full bg-brand-red rotate-12 hidden md:block"></div>
+  <div class="absolute top-40 right-12 h-5 w-5 rounded-full bg-brand-purple hidden md:block"></div>
+  <div class="absolute bottom-24 left-20 h-3 w-3 rounded-full bg-brand-blue hidden md:block"></div>
+
+  <div class="relative max-w-6xl mx-auto">
+
+    <!-- Encabezado de sección -->
+    <div class="text-center mb-10 md:mb-14">
+      <span class="font-display inline-block bg-brand-purple text-white text-xs md:text-sm font-600 px-4 py-1 rounded-full shadow-pop-sm mb-4 uppercase tracking-wide">
+        Elige tu fiesta ideal
+      </span>
+      <h2 class="title-festive font-display text-brand-blue text-3xl sm:text-4xl md:text-5xl font-700">
+        Nuestros Paquetes Divertidos 🎉
+      </h2>
+    </div>
+
+    <!-- Píldora Mágica: banner flotante de "todos los cumples incluyen" -->
+    <div class="relative mx-auto max-w-3xl mb-14 md:mb-20">
+      <div class="card-float relative bg-gradient-to-r from-brand-lime via-[#B8DD5C] to-brand-lime-dark text-white rounded-full md:rounded-[3rem] px-6 py-5 md:px-12 md:py-7 text-center border-[3px] border-dashed border-white/70 overflow-hidden">
+
+        <!-- Brillo decorativo sutil dentro de la píldora -->
+        <div class="absolute -top-6 -left-6 h-20 w-20 rounded-full bg-white/15 blur-xl"></div>
+        <div class="absolute -bottom-8 -right-4 h-24 w-24 rounded-full bg-white/10 blur-xl"></div>
+
+        <p class="relative font-display text-base md:text-xl font-700 leading-snug drop-shadow-sm flex flex-wrap items-center justify-center gap-2">
+          <span class="animate-gift text-2xl md:text-3xl" aria-hidden="true">🎁</span>
+          ¡TODOS LOS CUMPLES INCLUYEN: Snacks de centro, Jarra de refresco y Bolsitas de dulces!
+        </p>
+      </div>
+    </div>
+
+    <!-- Grid de tarjetas de paquetes -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-7">
+
+      <!-- Paquete 1: Solo Lugar -->
+      <div class="flex flex-col bg-white rounded-3xl border-4 border-brand-purple card-float overflow-hidden">
+        <div class="bg-brand-purple text-white text-center py-3 px-4">
+          <h3 class="font-display text-lg md:text-xl font-600">Solo Lugar</h3>
+          <p class="text-xs md:text-sm font-600 opacity-90">20 Personas</p>
+        </div>
+        <div class="flex-1 flex flex-col px-5 py-6 text-center">
+          <p class="font-display text-brand-purple-dark text-3xl md:text-4xl font-700 mb-3">$2,000</p>
+          <p class="text-sm md:text-base text-slate-600 flex-1">
+            Renta del espacio ideal para eventos pequeños y máxima flexibilidad.
+          </p>
+          <a
+            href="https://wa.me/5210000000000?text=Hola%2C%20quiero%20cotizar%20el%20paquete%20%22Solo%20Lugar%20(20%20personas)%22%20de%20%242%2C000"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-pop mt-5 bg-brand-yellow hover:bg-brand-yellow-dark text-brand-blue-dark font-display text-sm md:text-base font-600 py-3 rounded-full shadow-pop-sm transition-colors"
+          >
+            ¡Cotizar este Paquete!
+          </a>
+        </div>
+      </div>
+
+      <!-- Paquete 2: Cumple 20 Personas -->
+      <div class="flex flex-col bg-white rounded-3xl border-4 border-brand-blue card-float overflow-hidden">
+        <div class="bg-brand-blue text-white text-center py-3 px-4">
+          <h3 class="font-display text-lg md:text-xl font-600">Cumple</h3>
+          <p class="text-xs md:text-sm font-600 opacity-90">20 Personas</p>
+        </div>
+        <div class="flex-1 flex flex-col px-5 py-6 text-center">
+          <p class="font-display text-brand-blue-dark text-3xl md:text-4xl font-700 mb-3">$2,600</p>
+          <ul class="text-sm md:text-base text-slate-600 flex-1 space-y-1.5 text-left mx-auto">
+            <li class="flex gap-2"><span class="text-brand-lime-dark">●</span> 4 Jarras de refresco</li>
+            <li class="flex gap-2"><span class="text-brand-lime-dark">●</span> 6 Charolas de snacks</li>
+            <li class="flex gap-2"><span class="text-brand-lime-dark">●</span> 10 Bolsitas de dulces</li>
+          </ul>
+          <a
+            href="https://wa.me/5210000000000?text=Hola%2C%20quiero%20cotizar%20el%20paquete%20%22Cumple%2020%20Personas%22%20de%20%242%2C600"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-pop mt-5 bg-brand-red hover:bg-brand-red-dark text-white font-display text-sm md:text-base font-600 py-3 rounded-full shadow-pop-sm transition-colors"
+          >
+            ¡Cotizar este Paquete!
+          </a>
+        </div>
+      </div>
+
+      <!-- Paquete 3: Cumple 30 Personas -->
+      <div class="flex flex-col bg-white rounded-3xl border-4 border-brand-lime-dark card-float overflow-hidden relative">
+        <!-- Etiqueta de "más popular" -->
+        <div class="absolute top-0 right-0 bg-brand-yellow text-brand-blue-dark text-[10px] md:text-xs font-display font-700 px-3 py-1 rounded-bl-xl shadow-pop-sm z-10">
+          MÁS PEDIDO
+        </div>
+        <div class="bg-brand-lime-dark text-white text-center py-3 px-4">
+          <h3 class="font-display text-lg md:text-xl font-600">Cumple</h3>
+          <p class="text-xs md:text-sm font-600 opacity-90">30 Personas</p>
+        </div>
+        <div class="flex-1 flex flex-col px-5 py-6 text-center">
+          <p class="font-display text-brand-lime-dark text-3xl md:text-4xl font-700 mb-3">$3,600</p>
+          <ul class="text-sm md:text-base text-slate-600 flex-1 space-y-1.5 text-left mx-auto">
+            <li class="flex gap-2"><span class="text-brand-blue">●</span> 6 Charolas de snacks</li>
+            <li class="flex gap-2"><span class="text-brand-blue">●</span> 15 Bolsitas de dulces</li>
+            <li class="flex gap-2"><span class="text-brand-blue">●</span> Jarras de refresco proporcionales</li>
+          </ul>
+          <a
+            href="https://wa.me/5210000000000?text=Hola%2C%20quiero%20cotizar%20el%20paquete%20%22Cumple%2030%20Personas%22%20de%20%243%2C600"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-pop mt-5 bg-brand-red hover:bg-brand-red-dark text-white font-display text-sm md:text-base font-600 py-3 rounded-full shadow-pop-sm transition-colors"
+          >
+            ¡Cotizar este Paquete!
+          </a>
+        </div>
+      </div>
+
+      <!-- Paquete 4: Cumple 40 Personas -->
+      <div class="flex flex-col bg-white rounded-3xl border-4 border-brand-yellow card-float overflow-hidden">
+        <div class="bg-brand-yellow text-brand-blue-dark text-center py-3 px-4">
+          <h3 class="font-display text-lg md:text-xl font-600">Cumple</h3>
+          <p class="text-xs md:text-sm font-600 opacity-90">40 Personas</p>
+        </div>
+        <div class="flex-1 flex flex-col px-5 py-6 text-center">
+          <p class="font-display text-brand-blue-dark text-3xl md:text-4xl font-700 mb-3">$4,800</p>
+          <ul class="text-sm md:text-base text-slate-600 flex-1 space-y-1.5 text-left mx-auto">
+            <li class="flex gap-2"><span class="text-brand-purple">●</span> 8 Jarras de refresco</li>
+            <li class="flex gap-2"><span class="text-brand-purple">●</span> 8 Charolas de snacks</li>
+            <li class="flex gap-2"><span class="text-brand-purple">●</span> 20 Bolsitas de dulces</li>
+          </ul>
+          <a
+            href="https://wa.me/5210000000000?text=Hola%2C%20quiero%20cotizar%20el%20paquete%20%22Cumple%2040%20Personas%22%20de%20%244%2C800"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-pop mt-5 bg-brand-red hover:bg-brand-red-dark text-white font-display text-sm md:text-base font-600 py-3 rounded-full shadow-pop-sm transition-colors"
+          >
+            ¡Cotizar este Paquete!
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Nota aclaratoria -->
+    <p class="text-center text-xs md:text-sm text-slate-500 mt-8 max-w-2xl mx-auto">
+      * Precios sujetos a cambios sin previo aviso. Pregunta por extras como decoración temática, animador, mago y mesa de dulces.
+    </p>
+  </div>
+
+  <!-- Divisor de onda inferior, conecta con el blanco de la sección de Galería -->
+  <div class="wave-divider wave-bottom">
+    <svg viewBox="0 0 500 40" preserveAspectRatio="none">
+      <path d="M0,20 C100,0 150,40 250,25 C350,10 400,40 500,20 L500,40 L0,40 Z" fill="#FFFFFF"></path>
+    </svg>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECCIÓN: GALERÍA                              -->
+<!-- (Próximo paso: grid de fotos/videos de         -->
+<!-- eventos pasados, carrusel o mosaico)           -->
+<!-- ============================================ -->
+<section id="galeria" class="bg-white">
+  <!-- TODO: Construir sección de Galería aquí -->
+</section>
+
+<!-- ============================================ -->
+<!-- SECCIÓN: CONTACTO / FORMULARIO                -->
+<!-- (Próximo paso: formulario de contacto +        -->
+<!-- mapa de ubicación + datos de contacto +        -->
+<!-- footer)                                        -->
+<!-- ============================================ -->
+<section id="contacto" class="bg-sky-100">
+  <!-- TODO: Construir sección de Contacto/Formulario aquí -->
+</section>
+
+<!-- Script: control del menú desplegable -->
+<script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const menuDropdown = document.getElementById('menu-dropdown');
+
+  menuToggle.addEventListener('click', () => {
+    const isOpen = !menuDropdown.classList.contains('hidden');
+    menuDropdown.classList.toggle('hidden');
+    menuToggle.setAttribute('aria-expanded', String(!isOpen));
+  });
+
+  // Cierra el menú al elegir una opción (mejor experiencia en móvil)
+  menuDropdown.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      menuDropdown.classList.add('hidden');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
+
+</body>
+</html>
