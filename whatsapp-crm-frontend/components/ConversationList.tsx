@@ -1,0 +1,104 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import { useChatStore } from "@/store/useChatStore";
+import { getStatus, Status } from "@/types";
+import ConversationItem from "./ConversationItem";
+
+type FilterKey = "todos" | Status;
+
+export default function ConversationList() {
+  const conversations = useChatStore((s) => s.conversations);
+  const activeId = useChatStore((s) => s.activeId);
+  const selectConversation = useChatStore((s) => s.selectConversation);
+
+  const [query, setQuery] = useState("");
+  const [filter, setFilter] = useState<FilterKey>("todos");
+
+  const filtered = useMemo(() => {
+    let list = (conversations || []).filter((c) => {
+      if (!c) return false;
+      const nombre = (c.nombre || c.nombre_cliente || "").toLowerCase();
+      const telefono = c.telefono || c.telefono_cliente || "";
+      const search = query.toLowerCase();
+
+      return nombre.includes(search) || telefono.includes(search);
+    });
+
+    if (filter !== "todos") {
+      list = list.filter((c) => getStatus(c) === filter);
+    }
+
+    const order: Record<Status, number> = { escalado: 0, human: 1, bot: 2 };
+    return [...list].sort((a, b) => {
+      const statusA = getStatus(a);
+      const statusB = getStatus(b);
+      return (order[statusA] ?? 3) - (order[statusB] ?? 3);
+    });
+  }, [conversations, query, filter]);
+
+  const counts = useMemo(() => {
+    const c: Record<Status, number> = { bot: 0, escalado: 0, human: 0 };
+    (conversations || []).forEach((conv) => {
+      if (!conv) return;
+      const status = getStatus(conv);
+      if (c[status] !== undefined) c[status]++;
+    });
+    return c;
+  }, [conversations]);
+
+  return (
+    <div className="w-80 shrink-0 bg-slate-900 flex flex-col h-full border-r border-slate-800">
+      <div className="px-4 py-4 border-b border-slate-800">
+        <h1 className="text-slate-100 font-semibold text-lg">Conversaciones</h1>
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Buscar por nombre o teléfono"
+          className="mt-3 w-full bg-slate-800 text-slate-200 text-sm rounded-lg px-3 py-2 outline-none placeholder:text-slate-500 focus:ring-2 focus:ring-blue-500"
+        />
+        <div className="flex gap-1.5 mt-3 flex-wrap">
+          {(
+            [
+              { key: "todos", label: `Todos ${conversations?.length || 0}` },
+              { key: "escalado", label: `⚠️ ${counts.escalado}` },
+              { key: "bot", label: `🤖 ${counts.bot}` },
+              { key: "human", label: `👤 ${counts.human}` },
+            ] as { key: FilterKey; label: string }[]
+          ).map((f) => (
+            <button
+              key={f.key}
+              onClick={() => setFilter(f.key)}
+              className={`text-xs px-2.5 py-1 rounded-full border transition-colors ${
+                filter === f.key
+                  ? "bg-blue-600 border-blue-600 text-white"
+                  : "border-slate-700 text-slate-400 hover:border-slate-600"
+              }`}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="overflow-y-auto flex-1">
+        {filtered.length === 0 ? (
+          <p className="text-slate-500 text-sm text-center mt-8 px-4">
+            No hay conversaciones que coincidan.
+          </p>
+        ) : (
+          filtered
+            .filter((conv) => Boolean(conv))
+            .map((conv) => (
+              <ConversationItem
+                key={conv.id}
+                conv={conv}
+                active={String(conv.id) === String(activeId)}
+                onClick={() => selectConversation(String(conv.id))}
+              />
+            ))
+        )}
+      </div>
+    </div>
+  );
+}
