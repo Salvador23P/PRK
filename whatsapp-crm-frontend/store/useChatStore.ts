@@ -16,7 +16,8 @@ interface ChatState {
   sendMessage: (id: string, text: string) => Promise<void>;
 }
 
-const API_BASE = "https://prk-whatsapp-crm-backend.7q5nan.easypanel.host/";
+// URL base limpia sin diagonal al final
+const API_BASE = "https://prk-whatsapp-crm-backend.7q5nan.easypanel.host";
 
 export const useChatStore = create<ChatState>((set, get) => ({
   conversations: [],
@@ -34,10 +35,10 @@ export const useChatStore = create<ChatState>((set, get) => ({
       ),
     })),
 
-  // 1. Obtener todas las conversaciones desde PostgreSQL
+  // 1. Obtener todas las conversaciones desde PostgreSQL agregando el prefijo /api
   fetchConversations: async () => {
     try {
-      const res = await axios.get(`${API_BASE}/conversaciones`);
+      const res = await axios.get(`${API_BASE}/api/conversaciones`);
       const data: Conversation[] = res.data.map((item: any) => ({
         id: String(item.id),
         nombre: item.nombre_cliente || item.nombre || item.numero_whatsapp,
@@ -64,12 +65,12 @@ export const useChatStore = create<ChatState>((set, get) => ({
     }
   },
 
-  // 2. Obtener los mensajes de un chat específico
+  // 2. Obtener los mensajes de un chat específico agregando el prefijo /api
   fetchMessages: async (conversationId: string) => {
     if (!conversationId) return;
     try {
       const res = await axios.get(
-        `${API_BASE}/conversaciones/${conversationId}/mensajes`
+        `${API_BASE}/api/conversaciones/${conversationId}/mensajes`
       );
       const mensajes: Message[] = res.data.map((m: any) => ({
         id: String(m.id),
@@ -94,10 +95,10 @@ export const useChatStore = create<ChatState>((set, get) => ({
     }
   },
 
-  // 3. Enviar mensaje desde la interfaz a la base de datos
+  // 3. Enviar mensaje desde la interfaz agregando el prefijo /api
   sendMessage: async (id: string, text: string) => {
     try {
-      const res = await axios.post(`${API_BASE}/conversaciones/${id}/responder`, {
+      const res = await axios.post(`${API_BASE}/api/conversaciones/${id}/responder`, {
         texto: text,
       });
 
