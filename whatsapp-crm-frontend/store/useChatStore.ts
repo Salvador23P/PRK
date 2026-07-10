@@ -16,7 +16,7 @@ interface ChatState {
   sendMessage: (id: string, text: string) => Promise<void>;
 }
 
-const API_BASE = "http://localhost:3001/api";
+const API_BASE = "https://prk-whatsapp-crm-backend.7q5nan.easypanel.host/";
 
 export const useChatStore = create<ChatState>((set, get) => ({
   conversations: [],
