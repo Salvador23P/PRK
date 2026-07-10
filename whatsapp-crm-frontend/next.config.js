@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  output: 'standalone', // <--- ESTA LÍNEA ES OBLIGATORIA
+  // las otras configuraciones que ya tengas...
+};
 
-module.exports = nextConfig;
+export default nextConfig;

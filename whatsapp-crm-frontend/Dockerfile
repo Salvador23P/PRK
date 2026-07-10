@@ -1,18 +1,32 @@
-# 1. Usar una imagen oficial de Node.js
-FROM node:20-alpine
-
-# 2. Crear el directorio de la app
+# === ETAPA 1: Dependencias y Compilación ===
+FROM node:20-alpine AS builder
 WORKDIR /usr/src/app
 
-# 3. Copiar archivos de empaquetado e instalar dependencias
+# Copiar archivos de configuración de dependencias
 COPY package*.json ./
-RUN npm install --production
+RUN npm install
 
-# 4. Copiar el resto del código fuente
+# Copiar el resto del código del frontend y compilar
 COPY . .
+RUN npm run build
 
-# 5. Exponer el puerto genérico
-EXPOSE 3001
+# === ETAPA 2: Imagen de producción ligera ===
+FROM node:20-alpine AS runner
+WORKDIR /usr/src/app
 
-# 6. Comando para arrancar la aplicación
-CMD [ "node", "server.js" ]
+ENV NODE_ENV=production
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+
+# Exponer el puerto correcto para Next.js
+EXPOSE 3000
+
+# Copiar los archivos públicos y los estáticos optimizados
+COPY --from=builder /usr/src/app/public ./public
+COPY --from=builder /usr/src/app/.next/static ./.next/static
+
+# Copiar el servidor optimizado generado por el modo standalone
+COPY --from=builder /usr/src/app/.next/standalone ./
+
+# Comando para arrancar el servidor standalone de Next.js
+CMD ["node", "server.js"]
