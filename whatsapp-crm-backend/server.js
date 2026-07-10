@@ -9,7 +9,7 @@ app.use(cors());
 
 // Configuración de la base de datos
 const db = new Pool({
-  host: 'postgres://postgres:amcqvf2yknmih4kgfu70@prk_n8n-db:5432/prk?sslmode=disable',            
+  host: 'prk_n8n-db',            
   port: 5432,                        
   user: 'postgres',                  
   password: 'amcqvf2yknmih4kgfu70',  
