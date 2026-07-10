@@ -55,14 +55,14 @@ export default function ControlPanel() {
 
         <div className="space-y-2">
           <button
-            onClick={() => setMode(conv.id, "human")}
+            onClick={() => setMode(String(conv.id), "human")}
             disabled={conv.mode === "human"}
             className="w-full text-sm font-medium rounded-lg px-3 py-2.5 bg-blue-600 text-white hover:bg-blue-700 disabled:bg-slate-100 disabled:text-slate-400 transition-colors"
           >
             👤 Tomar control
           </button>
           <button
-            onClick={() => setMode(conv.id, "bot")}
+            onClick={() => setMode(String(conv.id), "bot")}
             disabled={conv.mode === "bot" && conv.estado === "activo"}
             className="w-full text-sm font-medium rounded-lg px-3 py-2.5 bg-emerald-500 text-white hover:bg-emerald-600 disabled:bg-slate-100 disabled:text-slate-400 transition-colors"
           >
