@@ -11,7 +11,8 @@ export default function ChatInput({ conv }: { conv: Conversation }) {
 
   function handleSend() {
     if (!enabled || !text.trim()) return;
-    sendMessage(conv.id, text.trim());
+    // Forzamos a que el ID sea string usando String()
+    sendMessage(String(conv.id), text.trim());
     setText("");
   }
 
