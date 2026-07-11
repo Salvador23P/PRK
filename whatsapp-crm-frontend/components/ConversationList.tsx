@@ -48,7 +48,7 @@ export default function ConversationList() {
   }, [conversations]);
 
   return (
-    <div className="w-80 shrink-0 bg-slate-900 flex flex-col h-full border-r border-slate-800">
+    <div className="w-full bg-slate-900 flex flex-col h-full border-r border-slate-800">
       <div className="px-4 py-4 border-b border-slate-800">
         <h1 className="text-slate-100 font-semibold text-lg">Conversaciones</h1>
         <input

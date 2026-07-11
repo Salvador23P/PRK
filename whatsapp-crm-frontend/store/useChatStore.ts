@@ -10,6 +10,12 @@ interface ChatState {
   selectConversation: (id: string) => void;
   setMode: (id: string, mode: Status) => void;
 
+  // Regresa a la vista de lista (usado por el botón "Volver" en mobile).
+  // Reutiliza el mismo patrón que ya tenías: activeId === "" hace que
+  // ChatWindow muestre el placeholder "Selecciona una conversación",
+  // y en mobile eso se traduce en mostrar el sidebar de nuevo.
+  goBackToList: () => void;
+
   // Acciones asíncronas conectadas al Backend Node.js / PostgreSQL
   fetchConversations: () => Promise<void>;
   fetchMessages: (conversationId: string) => Promise<void>;
@@ -34,6 +40,8 @@ export const useChatStore = create<ChatState>((set, get) => ({
         String(c.id) === String(id) ? { ...c, mode, estado: "activo" } : c
       ),
     })),
+
+  goBackToList: () => set({ activeId: "" }),
 
   // 1. Obtener todas las conversaciones desde PostgreSQL agregando el prefijo /api
   fetchConversations: async () => {
