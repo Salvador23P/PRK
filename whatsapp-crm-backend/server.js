@@ -129,13 +129,11 @@ app.post('/api/conversaciones/:id/responder', async (req, res) => {
       console.log(`📤 Enviando petición a n8n para el cliente: ${telefono}...`);
       
       // REEMPLAZA ESTA URL por tu webhook de n8n de PRODUCTION
-      await axios.post("https://prk-n8n.7q5nan.easypanel.host/webhook/36948c3c-fe9f-4fda-b9ab-e0dad38e619a", {
+      await axios.post("https://prk-n8n.7q5nan.easypanel.host/webhook/crm-responder", {
         chatInput: texto,
         sessionId: `${telefono}@s.whatsapp.net`,
         chat_id: `${telefono}@s.whatsapp.net`,
         name: convResult.rows[0]?.nombre_cliente || "Cliente CRM",
-        url_server: "https://prk-n8n.7q5nan.easypanel.host/webhook/36948c3c-fe9f-4fda-b9ab-e0dad38e619a",
-        apikey: "F0AA03CCA58E-422C-BF70-23E504A58E84",
         instance_name: "prk_bot"
       });
 
