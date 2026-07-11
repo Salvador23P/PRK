@@ -10,9 +10,14 @@ type FilterKey = "todos" | Status;
 interface ConversationListProps {
   isOpen?: boolean;
   onClose?: () => void;
+  forcedHide?: boolean; // Se agrega para soportar el botón "Expandir"
 }
 
-export default function ConversationList({ isOpen = false, onClose }: ConversationListProps) {
+export default function ConversationList({
+  isOpen = false,
+  onClose,
+  forcedHide = false,
+}: ConversationListProps) {
   const conversations = useChatStore((s) => s.conversations);
   const activeId = useChatStore((s) => s.activeId);
   const selectConversation = useChatStore((s) => s.selectConversation);
@@ -71,17 +76,18 @@ export default function ConversationList({ isOpen = false, onClose }: Conversati
       {/* CONTENEDOR PRINCIPAL SIDEBAR */}
       <div
         className={`
-          fixed md:static inset-y-0 left-0 z-50
-          w-80 shrink-0 bg-slate-900 flex flex-col h-full border-r border-slate-800
-          transition-transform duration-300 ease-in-out
+          fixed md:static inset-y-0 left-0 z-40
+          shrink-0 bg-slate-900 flex flex-col h-full border-r border-slate-800
+          transition-all duration-300 ease-in-out
+          ${forcedHide ? "md:w-0 md:opacity-0 overflow-hidden border-none" : "w-80 md:w-80 md:opacity-100"}
           ${isOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full md:translate-x-0"}
         `}
       >
-        {/* CABECERA CON BÚSQUEDA Y BOTÓN DE CERRAR */}
-        <div className="px-4 py-4 border-b border-slate-800">
+        {/* CABECERA CON ESPACIADO PARA QUE LOS BOTONES NO TAPEN EL TÍTULO */}
+        <div className="px-4 py-4 border-b border-slate-800 pt-14 md:pt-4">
           <div className="flex justify-between items-center">
             <h1 className="text-slate-100 font-semibold text-lg">Conversaciones</h1>
-            
+
             {/* Botón para cerrar manualmente en Móvil */}
             {onClose && (
               <button
